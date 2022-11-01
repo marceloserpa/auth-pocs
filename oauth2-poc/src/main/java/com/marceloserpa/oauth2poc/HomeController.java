@@ -12,5 +12,9 @@ public class HomeController {
         return "home"; // view
     }
 
+    @GetMapping("/admin")
+    public String admin(Model model){
+        return "admin"; // view
+    }
 
 }
