@@ -35,6 +35,9 @@ public class SecurityConfig  {
     private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
+    private PasswordEncoder bcryptEncoder;
+
+    @Autowired
     public DataSource dataSource;
 
     @Bean
@@ -51,17 +54,10 @@ public class SecurityConfig  {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-
-
-    @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(jwtUserDetailsService).passwordEncoder(bcryptEncoder);
         return authenticationManagerBuilder.build();
     }
 
@@ -69,7 +65,7 @@ public class SecurityConfig  {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate", "/hello").permitAll()
+                .authorizeRequests().antMatchers("/authenticate", "/hello", "/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and().sessionManagement()
