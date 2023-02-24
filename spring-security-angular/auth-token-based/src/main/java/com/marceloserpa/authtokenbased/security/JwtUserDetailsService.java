@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
@@ -22,12 +23,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if ("marceloserpapoc".equals(username)) {
-            return new User("marceloserpapoc", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-                    new ArrayList<>());
-        } else {
-            throw new UsernameNotFoundException("User not found with username: " + username);
-        }
+        return Optional.ofNullable(userRepository.findByUsername(username))
+                .map(userEntity -> new User(userEntity.getUsername(), userEntity.getPassword(),new ArrayList<>()))
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 
     public UserEntity save(UserRequest user) {
