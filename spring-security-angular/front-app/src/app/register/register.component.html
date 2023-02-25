@@ -1,4 +1,4 @@
-<h2>Login</h2>
+<h2>Register</h2>
 <div class="col-md-12">
     <div class="card card-container">
       <img
@@ -42,16 +42,16 @@
     
 
         <div class="form-group">
-          <button class="btn btn-primary btn-block">Sign Up</button>
+          <button class="btn btn-primary btn-block">Create account</button>
         </div>
   
         <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-          login failed!<br />{{ errorMessage }}
+          register failed!<br />{{ errorMessage }}
         </div>
       </form>
   
       <div class="alert alert-success" *ngIf="isSuccessful">
-        Your login is successful!
+        Your register is successful!
       </div>
     </div>
   </div>

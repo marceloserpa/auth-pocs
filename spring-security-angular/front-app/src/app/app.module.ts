@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { LoginComponent } from './login/login.component';
 import { SecurityInterceptorService } from './security-interceptor.service';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookListComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

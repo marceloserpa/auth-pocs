@@ -12,13 +12,20 @@ export class AutheticationService {
   login(username: String, password: String) {
     return this.httpClient.post<any>("http://localhost:9000/authenticate", { username, password })
     .pipe(map(user => {
-        // login successful if there's a jwt token in the response
         if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user));
         }
 
         return user;
     }));   
   }
+
+
+  register(username: String, password: String) {
+    return this.httpClient.post<any>("http://localhost:9000/register", { username, password })
+    .pipe(map(user => {
+        return user;
+    }));   
+  }
+
 }
