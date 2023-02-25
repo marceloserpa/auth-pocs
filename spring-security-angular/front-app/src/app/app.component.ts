@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'front-app';
+
+
+  logout(): void {
+    localStorage.removeItem("currentUser");
+    window.location.reload();
+  }
+
+
 }
